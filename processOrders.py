@@ -7,13 +7,14 @@ import json
 import sys
 
 class Order():
+    color = "#00FF00"
     def __init__(self):
         self.order=0
 
-    def setlocation(self):
+    def setlocation(self, cache):
         """ Check the lat/long cache, check new addresses with googleapi.  Set lat/long for the order appropriately.
             After this method is run, the Order will have lat/long set or have its lat set to 'Address is suspect' """
-        self.streetname = o.street.lower().split(' ',1)[1]
+        self.streetname = self.street.lower().split(' ',1)[1]
         # print self.streetname
         if(self.street in cache):
             self.lat = cache[self.street][0]
@@ -36,52 +37,81 @@ class Order():
                 self.lon = ""
             cache[self.street] = (self.lat, self.lon)
 
-# read in lat/long cachce
-print "\nReading in lat/long cache"
-import json
-f=open("latlong.cache", "r")
-cache = json.load(f)
-f.close()
-
-# read in clump configs
-f=open("clumps.json", "r")
-clumpconfig = json.load(f)
-f.close()
-
-# read in raw spreadsheet dump
-print "\nReading in spreadsheet dump"
-orderList = []
-for line in open(sys.argv[1]).readlines():
-    if not line.strip(): continue
-    line.strip()
-    o = Order()
-    o.deposit, o.order, o.firstname, o.lastname, o.orderdate, o.bags, o.donation, o.paid, o.checknum, o.subdivision, o.street, o.city, o.state, o.zipcode, o.phone, o.email, o.comments, o.toss1, o.toss2, o.toss3, o.toss4, o.toss5 = line.rstrip().split('\t')
-    o.setlocation()
-    orderList.append(o)
-
-import operator
-orderList.sort(key=operator.attrgetter('streetname'))
+# read in lat/long cachce and return it
+def loadLatLongCache(fileloc):
+    print "\nReading in lat/long cache"
+    import json
+    f=open(fileloc, "r")
+    ret = json.load(f)
+    f.close()
+    return ret
 
 # write out the cache
-print "\nWriting out the lat/long cache"
-f=open("latlong.cache", "w")
-json.dump(cache, f, indent=4, separators=(',', ': '))
-f.close()
+def saveLatLongCache(fileloc):
+    print "\nWriting out the lat/long cache"
+    f=open(fileloc, "w")
+    json.dump(cache, f, indent=4, separators=(',', ': '))
+    f.close()
 
-# make an HTML map of all deliveries
-print "Creating overview map of all deliveries"
-import pygmaps
-# Church of the Epiphany - 38.906814,-77.40729
-# centered at rough central order  38.927115,-77.384287
-mymap = pygmaps.maps(38.927115,-77.384287, 13)
+# read in clump configs
+def loadClumpConfig(fileloc):
+    f=open(fileloc, "r")
+    ret = json.load(f)
+    f.close()
+    return ret
 
-for o in orderList:
-    if (o.lat[:7]=='Address'):
-        print o.street + " is being ignored due to bad address"
-        continue
-    mymap.addpoint(float(o.lat), float(o.lon), "#00FF00", o.street)
+# read in raw spreadsheet dump and return an ordered list of all Orders
+def readOrders(fileloc, cache):
+    print "\nReading in spreadsheet dump"
+    ret = []
+    for line in open(fileloc).readlines():
+        if not line.strip(): continue
+        line.strip()
+        o = Order()
+        o.deposit, o.order, o.firstname, o.lastname, o.orderdate, o.bags, o.donation, o.paid, o.checknum, o.subdivision, o.street, o.city, o.state, o.zipcode, o.phone, o.email, o.comments, o.toss1, o.toss2, o.toss3, o.toss4, o.toss5 = line.rstrip().split('\t')
+        o.setlocation(cache)
+        ret.append(o)
 
-mymap.draw('./allDeliveries.html')
+    import operator
+    ret.sort(key=operator.attrgetter('streetname'))
+    return ret
+
+# make an HTML map of deliveries
+def createDeliveryMap(orders, outputfile):
+    zoomlevel = 13  # bigger is closer
+    print "Creating overview map of " + str(len(orders)) + " deliveries"
+    import pygmaps
+    # Church of the Epiphany - 38.906814,-77.40729
+    # centered at rough central order  38.927115,-77.384287
+    mymap = pygmaps.maps(38.927115,-77.384287, zoomlevel)
+    for o in orders:
+        if (o.lat[:7]=='Address'):
+            print o.street + " is being ignored due to bad address"
+            continue
+        mymap.addpoint(float(o.lat), float(o.lon), o.color, o.street + " - " + o.bags + " bags")
+
+    mymap.draw(outputfile)
+
+
+
+def randomColor():
+    from random import randrange
+    ret = "%s" % "".join([hex(randrange(0, 255))[2:] for i in range(3)])
+    return ret
+
+def setOrderColors(clumpconfig, orderList):
+    for clumpname in clumpconfig.values():
+        c = randomColor()
+        for o in orderList:
+            if (o.streetname in clumpconfig and clumpconfig[o.streetname] == clumpname ):
+                o.color = c;
+
+cache = loadLatLongCache("latlong.cache")
+orderList = readOrders(sys.argv[1], cache)
+clumpconfig = loadClumpConfig("clumps.json")
+setOrderColors(clumpconfig, orderList)
+saveLatLongCache("latlong.cache")
+createDeliveryMap( orderList, './allDeliveries.html')
 
 # print out clumps
 print "\nPrinting out clump names and bag total for large clumps (100+ bags)"
