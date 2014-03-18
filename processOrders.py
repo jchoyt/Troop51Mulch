@@ -7,13 +7,19 @@ import json
 import sys
 
 class Order():
-    color = "#00FF00"
+
     def __init__(self):
         self.order=0
+        self.color = "#00FF00"
 
-    def setlocation(self, cache):
+    def setLocation(self, cache):
         """ Check the lat/long cache, check new addresses with googleapi.  Set lat/long for the order appropriately.
             After this method is run, the Order will have lat/long set or have its lat set to 'Address is suspect' """
+
+        # create qr codes - requires qrencode to be installed in the os.  Do this every time in case the order numbers change
+        import os
+        os.system("qrencode -o qrcodes/" + str(self.order) + ".png 'MECARD:N:" + self.lastname + ", " + self.firstname + ";ADR:" + self.street + ", " + self.city + ", " + self.state + " " + str(self.zipcode) + ";NOTE:Order " + str(self.order) + ": " + str(self.bags) + " bags;'")
+
         self.streetname = self.street.lower().split(' ',1)[1]
         # print self.streetname
         if(self.street in cache):
@@ -37,24 +43,19 @@ class Order():
                 self.lon = ""
             cache[self.street] = (self.lat, self.lon)
 
-# read in lat/long cachce and return it
-def loadLatLongCache(fileloc):
-    print "\nReading in lat/long cache"
-    import json
-    f=open(fileloc, "r")
-    ret = json.load(f)
-    f.close()
-    return ret
+class Clump():
+    def __init__(self):
+        self.bags = 0
+        self.orders = []
 
 # write out the cache
-def saveLatLongCache(fileloc):
-    print "\nWriting out the lat/long cache"
+def saveFile(fileloc, struct):
     f=open(fileloc, "w")
-    json.dump(cache, f, indent=4, separators=(',', ': '))
+    json.dump(struct, f, indent=4, separators=(',', ': '))
     f.close()
 
-# read in clump configs
-def loadClumpConfig(fileloc):
+# read in json file
+def loadFile(fileloc):
     f=open(fileloc, "r")
     ret = json.load(f)
     f.close()
@@ -62,24 +63,34 @@ def loadClumpConfig(fileloc):
 
 # read in raw spreadsheet dump and return an ordered list of all Orders
 def readOrders(fileloc, cache):
-    print "\nReading in spreadsheet dump"
     ret = []
     for line in open(fileloc).readlines():
         if not line.strip(): continue
         line.strip()
         o = Order()
         o.deposit, o.order, o.firstname, o.lastname, o.orderdate, o.bags, o.donation, o.paid, o.checknum, o.subdivision, o.street, o.city, o.state, o.zipcode, o.phone, o.email, o.comments, o.toss1, o.toss2, o.toss3, o.toss4, o.toss5 = line.rstrip().split('\t')
-        o.setlocation(cache)
+        o.setLocation(cache)
         ret.append(o)
 
     import operator
     ret.sort(key=operator.attrgetter('streetname'))
     return ret
 
+def readRoutes(fileloc, cache):
+    ret=[]
+    for line in open(fileloc).readlines():
+        if not line.strip(): continue
+        line.strip()
+        o=Order()
+        o.order, o.lastname, o.firstname, o.phone, o.streetname, o.street, o.city, o.state, o.zipcode, o.comments, o.bags, o.route = line.rstrip().split('\t')
+        o.setLocation(cache)
+        ret.append(o)
+    return ret
+
 # make an HTML map of deliveries
 def createDeliveryMap(orders, outputfile):
     zoomlevel = 13  # bigger is closer
-    print "Creating overview map of " + str(len(orders)) + " deliveries"
+    #print "Creating overview map of " + str(len(orders)) + " deliveries"
     import pygmaps
     # Church of the Epiphany - 38.906814,-77.40729
     # centered at rough central order  38.927115,-77.384287
@@ -88,10 +99,9 @@ def createDeliveryMap(orders, outputfile):
         if (o.lat[:7]=='Address'):
             print o.street + " is being ignored due to bad address"
             continue
-        mymap.addpoint(float(o.lat), float(o.lon), o.color, o.street + " - " + o.bags + " bags")
+        mymap.addpoint(float(o.lat), float(o.lon), o.color, o.street + " - Order " + o.order + " - " + o.bags + " bags")
 
     mymap.draw(outputfile)
-
 
 
 def randomColor():
@@ -106,30 +116,88 @@ def setOrderColors(clumpconfig, orderList):
             if (o.streetname in clumpconfig and clumpconfig[o.streetname] == clumpname ):
                 o.color = c;
 
-cache = loadLatLongCache("latlong.cache")
-orderList = readOrders(sys.argv[1], cache)
-clumpconfig = loadClumpConfig("clumps.json")
-setOrderColors(clumpconfig, orderList)
-saveLatLongCache("latlong.cache")
-createDeliveryMap( orderList, './allDeliveries.html')
+def printClumps( clumps, clumpconfig):
+    from collections import OrderedDict
+    # print out clumps
+    print "\nPrinting out clumps"
 
-# print out clumps
-print "\nPrinting out clump names and bag total for large clumps (100+ bags)"
-
-clumps = dict()
-for o in orderList:
-    if(o.streetname in clumpconfig):
-        clumpname = clumpconfig[o.streetname]
-        if(clumpname in clumps):
-            clumpbags = int(clumps[clumpname])
-            clumps[clumpname] = clumpbags + int(o.bags)
+    clumps = dict()
+    for o in orderList:
+        if(o.streetname in clumpconfig):
+            clumpname = clumpconfig[o.streetname]
+            if(clumpname in clumps):
+                clumpbags = int(clumps[clumpname].bags)
+                clumps[clumpname].bags = clumpbags + int(o.bags)
+            else:
+                clumps[clumpname] = Clump()
+                clumps[clumpname].bags = o.bags
+            clumps[clumpname].orders.append(o)
         else:
-            clumps[clumpname] = o.bags
+            print "Missing " + o.streetname + " in clumps config file"
+    for key in clumps.keys():
+        for o in clumps[key].orders:
+            print str(o.order) +"\t" + o.lastname + "\t" + o.firstname + "\t" + o.phone + "\t" + key + "\t" + o.street + "\t" + o.city + "\t" + o.state + "\t" + o.zipcode + "\tComments: " + o.comments + "\t" + str(o.bags)
 
-    else:
-        print "Missing " + o.streetname + " in clumps config file"
+def createRouteArtifacts( fileloc ):
+    routedOrders = readRoutes(fileloc, cache)
+    for i in range(1,36):
+        r=[]
+        for o in routedOrders:
+            color = "FF0000"
+            if(int(o.route) == i):
+                o.color=color
+                r.append(o)
+        createDeliveryMap( r, "maps/route" + str(i) + ".html" )
+        createRouteList( i, r, "routes/route" + str(i) + ".html" )
+
+def createRouteList( routeNum, orders, outputfile ):
+    f=open(outputfile, "w")
+    f.write('<html><head><style type="text/css">.panel{ padding:6px; border:solid 1px #E4E4E4; background-color:#EEEEEE; margin:8px 0px; width:98% ; min-height:80px; }.bodytext { font: Tahoma, sans-serif; color: #666666;  }.qrcode { float:left; }h1 { margin-bottom:5px; }</style></head><body>')
+    f.write('<h1>Route ' + str(routeNum) + '</h1>')
+    f.write('<br/>Comments: INSERT ROUTE COMMENTS HERE OR DELETE')
+    gmapsUrl = "https://maps.google.com/maps?saddr=3301+Hidden+Meadow+Drive+Herndon,+VA+20171&daddr="
+    bags=0
+    import urllib
+    for o in orders:
+        bags += int(o.bags)
+        address = o.street + " " + o.city + " " + o.state + " " + o.zipcode
+        gmapsUrl += address + "+to:"
+        f.write('<div class="panel" align="justify"><span class="qrcode">')
+        f.write('<img src="../qrcodes/' + str(o.order) + '.png" height="80px"/></span><span class="orangetitle">')
+        f.write('<a href="https://maps.google.com/maps?q=' + urllib.quote_plus(address) + '" target="_blank">' + address + '</a></span><span class="bodytext">')
+        f.write('<br/><b>' + str(o.bags) + ' bags</b> - Order ' + str(o.order) + ' <!-- - <span style="float:right"><a href="">Mark Done</a></span> -->')
+        f.write('<br/>Name: ' + o.firstname + ' ' + o.lastname + ' Tel: ' + o.phone)
+        f.write('<br><b>' + o.comments + '</b></span></div>')
+
+    gmapsUrl += "3301+Hidden+Meadow+Drive+Herndon,+VA+20171"
+    adjustment = ''
+    if(bags > 315):
+        adjustment = 'Add ' + str(bags - 315) + ' bags'
+    elif(bags < 315):
+        adjustment = 'Bring back ' + str(315 - bags) + ' bags'
+
+    f.write('<div style="position:absolute;left:400px;top:0px;"><span style="font:1.5em bold italic;">' + str(bags) + ' bags.  ' + adjustment + '</span><br>')
+    f.write('<a href="' + gmapsUrl + '" target="_blank">Google maps directions for entire route</a></body>')
+    f.write('</div>')
+    f.close()
 
 
-for key in clumps.keys():
-    if int(clumps[key]) > 99:
-        print key + ":" + str(clumps[key])
+cache = loadFile("latlong.cache")
+orderList = readOrders(sys.argv[1], cache)
+clumpconfig = loadFile("clumps.json")
+setOrderColors(clumpconfig, orderList)
+saveFile("latlong.cache", cache)
+# Create map of all orders using the pre-defined clumps.  This helps find streets that should be grouped.
+#createDeliveryMap( orderList, './allDeliveries.html')
+
+#printClumps( orderList, clumpconfig )  #dump this to a csv file for input into a spreadsheet and manual route creation
+
+createRouteArtifacts( "routes.csv" )
+
+#print "Home base\t3301 Hidden Meadow Drive Herndon, VA 20171\tLoad"
+
+
+
+
+
+
