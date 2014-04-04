@@ -1,0 +1,247 @@
+30	3122 Hannahs Pond Lane	Oak Hill	Va	20171
+30	12815 Willow Glen Ct.	Oak Hill	va	20171
+25	12655 Still Pond Lane	Oak Hill	Va	20171
+15	13121 Frog Hollow Ct.	Herndon	Va	20171
+15	13125 Frog Hollow Ct.	Herndon	Va	20171
+30	3265 Willow Glen Dr.	Oak Hill	Va	20171
+85	2967 Franklin Oaks Dr.	Oak Hill	Va	20171
+40	2945 Fort Lee Street	Herndon	va	20171
+30	3211 Wildmere Place	Herndon	Va	20171
+15	3001 Jonquilla Ct.	Herndon	Va	20171
+30	13127 Tuckaway Dr.	Oak Hill	Va	20171
+30	12347 Folkstone Dr.	Herndon	Va	20171
+50	3228 Nestlewood Dr.	Oak Hill	Va	20171
+50	13137 Tuckaway Dr.	Herndon	Va	20171
+35	3222 Brynwood Place	Herndon	Va	20171
+15	12902 Hedgetop Dr.	Herndon	Va	20171
+20	2950 Brook Mill Ct.	Herndon	Va	20171
+30	13102 Mares Neck Lane	Herndon	Va	20171
+80	2147 Maleady Dr.	Herndon	Va	20171
+20	13123 Frog Hollow	Herndon	Va	20171
+15	3403 Franklin Manor Ct.	Fairfax	Va	22033
+25	3007 Timber Wood Way	Herndon	Va	20171
+75	3201 Nestlewood Dr.	Herndon	Va	20171
+50	12705 Franklin Farm Road	Herndon	va	20171
+25	13003 Mt Aubern Ct.	Herndon	Va	20171
+30	3021 Summershade Ct.	Herndon	Va	20171
+50	2508 Fallon Dr.	Herndon	Va	20171
+40	13242 Pleasant Glen Ct.	Oak Hill	Va	20171
+30	13112 Tingewood Ct.	Oak Hill	Va	20171
+85	13148 Rounding Run Circle	Oak Hill	Va	20171
+35	3212 Wildmere Place	Oak Hill	Va	20171
+30	12659 Still Pond Lane	Herndon	Va	20171
+20	2515 Halterbreak Ct.	Herndon	Va	20171
+60	12513 Summer Place	Oak Hill	Va	20171
+40	13123 Tuckaway Dr.	Oak Hill	Va	20171
+30	2527 Fallon Dr.	Herndon	Va	20171
+75	12604 Noble ViCt.ory Lane	Reston	Va	20191
+30	12708 Fox Woods Dr.	Herndon	Va	20171
+20	2796 Mansway Dr.	Herndon	Va	20171
+75	3349 Fern Hollow Place	Herndon	Va	20171
+25	3331 Fern Hollow Place	Herndon	Va	20171
+40	3193 Pond Mist Way	Herndon	Va	20171
+20	2647 Wild Cherry Place	Reston	Va	20191
+20	3109 Hannahs Pond Lane	Herndon	Va	20171
+15	13122 Tuckaway Dr.	Herndon	Va	20171
+40	2779 Mansway Dr.	Herndon	Va	20171
+24	13117 Bradley Farm	Herndon	Va	20171
+75	13140 Rounding Run Circle	Herndon	Va	20171
+75	2957 Timber Wood Way	Herndon	Va	20171
+15	2915 Timber Wood Way	Herndon	Va	20171
+40	2627 Meadow Hall Dr.	Herndon	Va	20171
+100	13213 Tuckaway Dr.	Herndon	Va	20171
+15	12412 Macao Ct.	Herndon	Va	20171
+15	3000 Heritage Farm Ct.	Herndon	Va	20171
+35	13103 Wheeler Way	Herndon	Va	20171
+15	13137 Thornapple Place	Herndon	Va	20171
+50	3238 Rounding Run Ct.	Herndon	Va	20171
+35	2504 Halterbreak Ct.	Herndon	Va	20171
+25	3116 Ashburton Avenue	Herndon	Va	20171
+40	2796 Equuus Ct.	Herndon	Va	20171
+25	3210 Wildmere Place	Herndon	Va	20171
+15	3115 Nestlewood Dr.	Herndon	Va	20171
+80	12906 Locksley Ct.	Herndon	Va	20171
+40	13054 Farthingale Dr.	Herndon	Va	20171
+50	13202 Tuckaway Dr.	Herndon	Va	20171
+15	2786 Melchester Dr.	Herndon	Va	20171
+25	13158 Applegrove Lane	Herndon	Va	20171
+20	13051 Kensal Green Ct.	Herndon	Va	20171
+42	3119 Hannahs Pond Lane	Herndon	Va	20171
+40	2940 Harvest Glen Ct.	Herndon	Va	20171
+60	13338 Point Rider Lane	Herndon	Va	20171
+25	3183 Pond Mist Way	Herndon	Va	20171
+25	13019 Grey Friars Place	Herndon	Va	20171
+25	2504 Fallon Dr.	Herndon	Va	20171
+16	2920 Oak Shadow Dr.	Herndon	Va	20171
+75	12404 Myterra Way	Herndon	Va	20171
+30	1261 Still Pond	Herndon	Va	20171
+42	2919 Parklawn Ct.	Herndon	Va	20171
+75	3227 Nestlewood Dr.	Herndon	Va	20171
+30	13121 Cross Keys Ct.	Herndon	Va	20171
+25	2503 Tatnuck Ct.	Herndon	Va	20171
+30	12760 Flat Meadow Lane	Herndon	Va	20171
+50	2959 Franklin Oaks Ct.	Herndon	Va	20171
+20	12987 Thistlethorn Dr.	Herndon	Va	20171
+30	13121 Applegrove Lane	Herndon	Va	20171
+50	2503 Fallon Dr.	Herndon	Va	20171
+20	12805 Netherleigh Place	Herndon	Va	20171
+50	13098 Mares Neck Lane	Herndon	Va	20171
+75	13100 Mares Neck Lane	Herndon	Va	20171
+40	3286 Willow Glen Dr.	Herndon	Va	20171
+100	13058 Farthingale Dr.	Herndon	Va	20171
+50	12823 Netherleigh Place	Herndon	Va	20171
+50	3131 Nestlewood Dr.	Herndon	Va	20171
+50	13004 Monroe Manor Dr.	Herndon	Va	20171
+40	13125 Rounding Run Circle	Herndon	Va	20171
+75	3326 Bitter Sweet Ct.	Herndon	Va	20171
+36	3027 Emerald Chase Dr.	Herndon	Va	20171
+30	2940 Timber Wood Way	Herndon	Va	20171
+30	3236 Rounding Run Ct.	Herndon	Va	20171
+50	2960 Fort Lee Street	Herndon	Va	20171
+40	12763 Turberville Lane	Herndon	Va	20171
+30	3002 Cross Creek Ct.	Herndon	Va	20171
+15	3254 Willow Glen Dr.	Herndon	Va	20171
+65	2811 Gibson Oaks	Herndon	Va	20171
+40	13155 Ruby Lace Ct.	Herndon	Va	20171
+25	13104 Rounding Run Ct.	Herndon	Va	20171
+50	3023 Franklin Corner Lane	Herndon	Va	20171
+50	12607 Asturian Ct.	Herndon	Va	20171
+18	13129 Rounding Run Circle	Herndon	Va	20171
+24	3004 Ashburton Manor Dr.	Herndon	Va	20171
+50	3237 Rounding Run Ct.	Herndon	Va	20171
+60	12794 Netherleigh Place	Herndon	Va	20171
+20	3241 Duck Pond Ct.	Herndon	Va	20171
+30	12208 Lake James Dr.	Herndon	Va	20171
+20	3015 Pleasantree Ct.	Herndon	Va	20171
+30	12942 Oak Lawn Place	Herndon	Va	20171
+30	12994 Thistlethorn Dr.	Herndon	Va	20171
+30	12907 Harrington Ct.	Herndon	Va	20171
+80	13221 Lazy Glen Lane	Herndon	Va	20171
+50	2933 Fort Lee Street	Herndon	Va	20171
+32	2938 Fort Lee Street	Herndon	Va	20171
+50	13015 Bankfoot Ct.	Herndon	Va	20171
+20	2857 Bradley Acres Ct.	Herndon	Va	20171
+50	13506 Copper Bed Road	Herndon	Va	20171
+75	12800 Owlsley Way	Herndon	va	20171
+50	13106 Rounding Run Circle	Herndon	va	20171
+35	3024 Dower House Dr.	Herndon	va	20171
+35	12219 Folkstone Dr.	Herndon	va	20171
+30	13205 Tuckaway Dr.	Herndon	va	20171
+15	2854 Bradley Acres Ct.	Herndon	va	20171
+15	13513 Floris Street	Herndon	va	20171
+40	12776 Turberville Lane	Herndon	va	20171
+95	12925 Oak Lawn Place	Herndon	va	20171
+45	3103 Dower House Dr.	Herndon	va	20171
+25	13125 Tuckaway Dr.	Herndon	va	20171
+30	3239 Rounding Run Ct.	Herndon	va	20171
+15	13103 Anvil Place	Herndon	va	20171
+75	12762 Oak Farms Dr.	Herndon	va	20171
+20	2765 Mansway Dr.	Herndon	va	20171
+50	12600 Hay Meadow Place	Herndon	va	20171
+25	13227 Pleasant Glen Ct.	Herndon	va	20171
+15	2949 Ashdown Forest Dr.	Herndon	va	20171
+15	13016 Mayhill Ct.	Fairfax	va	22033
+50	2954 Brook Mill Ct.	Herndon	va	20171
+50	2933 Ashdown Forest Dr.	Herndon	va	20171
+20	3017 Pleasantree Ct.	Herndon	va	20171
+100	2703 Copper Creek Road	Herndon	va	20171
+15	13021 Bankfoot Ct.	Herndon	va	20171
+25	12802 Cross Creek Lane	Herndon	va	20171
+35	12906 Cinnamon Oaks Ct.	Herndon	va	20171
+85	13208 Wrenn House Lane	Herndon	va	20171
+40	13147 Applegrove Lane	Herndon	va	20171
+15	1311 Bramblewood Lane	Herndon	va	20171
+25	3011 Franklin Corner Lane	Herndon	va	20171
+40	12945 Oak Lawn Place	Herndon	va	20171
+50	12502 Summer Place	Herndon	va	20171
+30	13040 Monterey Estates Dr.	Herndon	va	20171
+60	13149 Tuckaway Dr.	Herndon	va	20171
+65	13159 Rounding Run Circle	Herndon	va	20171
+25	3003 Heritage Farm Ct.	Herndon	va	20171
+43	3213 Wildmere Place	Herndon	va	20171
+75	3116 Harrison Hollow Lane	Herndon	va	20171
+40	3246 Duck Pond Ct.	Herndon	va	20171
+20	3106 Dower House Dr.	Herndon	va	20171
+30	3337 Fern Hollow Place	Herndon	va	20171
+20	12764 Turberville Lane	Herndon	va	20171
+20	2962 Emerald Chase Dr.	Herndon	va	20171
+30	12985 Thistlethorn Dr.	Herndon	va	20171
+25	12616 Glenbrooke Woods Dr.	Herndon	va	20171
+25	2954 Mockernut Ct.	Herndon	va	20171
+30	12201 Lake James Dr.	Herndon	va	20171
+50	12915 Oak Lawn Place	Herndon	va	20171
+40	12355 Marionwood Ct.	Herndon	va	20171
+50	13100 Rounding Run Circle	Herndon	va	20171
+30	3222 Nestelwood Dr.	Herndon	va	20171
+20	2504 Iron Forge Road	Herndon	va	20171
+25	13210 Lazy Glen Lane	Herndon	va	20171
+25	3001 Pleasantree Ct.	Herndon	va	20171
+45	3003 Pleasantree Ct.	Herndon	va	20171
+40	3221 Spring Rain Ct.	Herndon	va	20171
+42	3313 Applegrove Ct.	Herndon	va	20171
+46	3305 Tuckaway Ct.	Herndon	va	20171
+50	12321 Myterra Way	Herndon	va	20171
+30	3101 Harrison Hollow Lane	Herndon	va	20171
+20	12765 Oak Farms Dr..	Herndon	va	20171
+50	3018 Millstream Ct.	Herndon	va	20171
+				
+20	3293 Willow Glen Dr.	Herndon	va	20171
+40	12803 Willow Glen Ct.	Herndon	va	20171
+35	13002 Bankfoot Ct.	Herndon	va	20171
+20	3115 Harrison Hollow Lane	Herndon	va	20171
+75	2962 Brook Mill Ct.	Herndon	va	20171
+0		Herndon	va	20171
+50	12415 Macao Ct.	Herndon	va	20171
+50	13108 Briargrove Ct.	Herndon	va	20171
+22	3346 Fern Hollow Place	Herndon	va	20171
+50	3106 Still Pond Ct.	Herndon	va	20171
+30	12657 Still Pond Lane	Herndon	va	20171
+50	13010 Grey Friars Place	Herndon	va	20171
+100	12201 Lake James Dr.	Herndon	va	20171
+25	3003 Jonquilla Ct.	Herndon	va	20171
+30	12615 Hay Meadow Place	Herndon	va	20171
+40	3195 Pond Mist Way	Herndon	va	20171
+20	2909 Rock Manor Ct.	Herndon	va	20171
+35	12992 Thistlethorn Dr.	Herndon	va	20171
+50	3348 Fern Hollow Place	Herndon	va	20171
+15	2432 Dakota Lakes Dr.	Herndon	va	20171
+25	13161 Brynwood Ct.	Herndon	va	20171
+50	13172 Autumn Hill Lane	Herndon	va	20171
+25	13156 Fern Hollow Ct.	Herndon	va	20171
+80	2751 Blueberry Farm Lane	Herndon	va	20171
+60	2797 Middleton Farm Ct.	Herndon	va	20171
+25	3250 Willow Glen Dr.	Herndon	va	20171
+15	2790 Melchester Dr.	Herndon	va	20171
+30	2722 Copper Creek Road	Herndon	va	20171
+20	13113 Frog Hollow Ct.	Herndon	va	20171
+15	2930 Oak Shadow Dr.	Herndon	va	20171
+18	13159 Applegrove Lane	Herndon	va	20171
+50	12620 Hay Meadow Place	Herndon	va	20171
+20	2794 Mansway Dr.	Herndon	va	20171
+40	3115 Oxford Forest Dr..	Herndon	va	20171
+30	3336 Fern Hollow Place	Herndon	va	20171
+30	12754 Oak Farms Dr.	Herndon	va	20171
+60	3304 Bywater Ct.	Herndon	va	20171
+25	12726 Oak Farms Dr.	Herndon	va	20171
+18	3104 Dower House Dr.	Herndon	va	20171
+15	3120 Hannahs Pond Lane	Herndon	va	20171
+15	2770 Melchester Dr.	Herndon	va	20171
+25	3184 Pond Mist Way	Herndon	va	20171
+50	1221 Folkstone Dr.	Herndon	va	20171
+42	13109 Briargrove Ct.	Herndon	va	20171
+25	2952 Ashdown Forest Dr.	Herndon	va	20171
+75	3229 Nestlewood Dr.	Herndon	va	20171
+50	3019 Pleasantree Ct.	Herndon	va	20171
+30	2506 Fallon Dr.	Herndon	va	20171
+75	2800 Mansway Dr.	Herndon	va	20171
+25	2470 Sycamore Lakes Cove	Herndon	va	20171
+60	2625 Iron Forge Road	Herndon	va	20171
+30	2724 Robaleed Way	Herndon	va	20171
+40	13109 Anvil Place	Herndon	va	20171
+75	12810 Saffron Dr.	Herndon	va	20171
+40	3026 Franklin Corner	Herndon	va	20171
+60	3117 Ashburton Avenue	Herndon	va	20171
+90	12982 Thistlethorn Dr.	Herndon	va	20171
+75	2970 Emerald Chase Dr.	Herndon	va	20171
+25	12778 Flat Meadow Lane	Herndon	va	20171
+9470				

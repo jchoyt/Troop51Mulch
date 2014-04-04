@@ -140,7 +140,7 @@ def printClumps( clumps, clumpconfig):
 
 def createRouteArtifacts( fileloc ):
     routedOrders = readRoutes(fileloc, cache)
-    for i in range(1,36):
+    for i in range(1,50):
         r=[]
         for o in routedOrders:
             color = "FF0000"
@@ -154,7 +154,7 @@ def createRouteList( routeNum, orders, outputfile ):
     f=open(outputfile, "w")
     f.write('<html><head><style type="text/css">.panel{ padding:6px; border:solid 1px #E4E4E4; background-color:#EEEEEE; margin:8px 0px; width:98% ; min-height:80px; }.bodytext { font: Tahoma, sans-serif; color: #666666;  }.qrcode { float:left; }h1 { margin-bottom:5px; }</style></head><body>')
     f.write('<h1>Route ' + str(routeNum) + '</h1>')
-    f.write('<br/>Comments: INSERT ROUTE COMMENTS HERE OR DELETE')
+    f.write('<br/>\nComments: Estimated time XX min, YYY bags.  \n')
     gmapsUrl = "https://maps.google.com/maps?saddr=3301+Hidden+Meadow+Drive+Herndon,+VA+20171&daddr="
     bags=0
     import urllib
@@ -176,25 +176,27 @@ def createRouteList( routeNum, orders, outputfile ):
     elif(bags < 315):
         adjustment = 'Bring back ' + str(315 - bags) + ' bags'
 
-    f.write('<div style="position:absolute;left:400px;top:0px;"><span style="font:1.5em bold italic;">' + str(bags) + ' bags.  ' + adjustment + '</span><br>')
+    f.write('<div style="position:absolute;left:400px;top:0px;"><span style="font:1.5em bold italic;">\n' + str(bags) + ' bags.  ' + adjustment + '\n</span><br>')
     f.write('<a href="' + gmapsUrl + '" target="_blank">Google maps directions for entire route</a></body>')
     f.write('</div>')
     f.close()
 
 
 cache = loadFile("latlong.cache")
-orderList = readOrders(sys.argv[1], cache)
-clumpconfig = loadFile("clumps.json")
-setOrderColors(clumpconfig, orderList)
-saveFile("latlong.cache", cache)
+
+######### Step 1 ###############
+#orderList = readOrders(sys.argv[1], cache)
+#clumpconfig = loadFile("clumps.json")
+#setOrderColors(clumpconfig, orderList)
+#saveFile("latlong.cache", cache)
 # Create map of all orders using the pre-defined clumps.  This helps find streets that should be grouped.
 #createDeliveryMap( orderList, './allDeliveries.html')
 
 #printClumps( orderList, clumpconfig )  #dump this to a csv file for input into a spreadsheet and manual route creation
 
-createRouteArtifacts( "routes.csv" )
+########## Step 2 #################
+createRouteArtifacts( sys.argv[1] )
 
-#print "Home base\t3301 Hidden Meadow Drive Herndon, VA 20171\tLoad"
 
 
 
