@@ -1,0 +1,14 @@
+http://tinyurl.com/troop51mulch goes to http://soulcubes.com/medcafe/index.html
+Today (Tue Mar 10 18:40:52 EDT 2015 @986 /Internet Time/) that is running on kai - an old laptop under the stairs
+
+PYTHON accessing pygmaps:
+export PYTHONPATH=/home/jchoyt/devel/boyscouts/pygmaps-0.1.1
+
+processOrders has two stages.  First stage checks and caches all addresses:
+./processOrders.py Mulch_Sale_2015.csv
+
+Second step generates the route html pages.  You have to adjust the comments at the bottom of the files.
+mkdir routes
+./processOrders.py 2015routes.csv
+
+

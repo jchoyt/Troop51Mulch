@@ -17,11 +17,18 @@ class Order():
             After this method is run, the Order will have lat/long set or have its lat set to 'Address is suspect' """
 
         # create qr codes - requires qrencode to be installed in the os.  Do this every time in case the order numbers change
-        import os
-        os.system("qrencode -o qrcodes/" + str(self.order) + ".png 'MECARD:N:" + self.lastname + ", " + self.firstname + ";ADR:" + self.street + ", " + self.city + ", " + self.state + " " + str(self.zipcode) + ";NOTE:Order " + str(self.order) + ": " + str(self.bags) + " bags;'")
+        #import os
+        #os.system("qrencode -o qrcodes/" + str(self.order) + ".png 'MECARD:N:" + self.lastname + ", " + self.firstname + ";ADR:" + self.street + ", " + self.city + ", " + self.state + " " + str(self.zipcode) + ";NOTE:Order " + str(self.order) + ": " + str(self.bags) + " bags;'")
 
-        self.streetname = self.street.lower().split(' ',1)[1]
-        # print self.streetname
+        # 2014, street number and name were in the same column - he changed it for 2015
+        #self.streetname = self.street.lower().split(' ',1)[1]
+
+        #2015 - ensure lower case streetname
+        self.streetname = self.streetname.lower()
+        #2015 - create "street" from number and name
+        self.street = self.streetnum + ' ' + self.streetname
+        # print self.street
+
         if(self.street in cache):
             self.lat = cache[self.street][0]
             self.lon = cache[self.street][1]
@@ -68,7 +75,8 @@ def readOrders(fileloc, cache):
         if not line.strip(): continue
         line.strip()
         o = Order()
-        o.deposit, o.order, o.firstname, o.lastname, o.orderdate, o.bags, o.donation, o.paid, o.checknum, o.subdivision, o.street, o.city, o.state, o.zipcode, o.phone, o.email, o.comments, o.toss1, o.toss2, o.toss3, o.toss4, o.toss5 = line.rstrip().split('\t')
+        #o.deposit, o.order, o.firstname, o.lastname, o.orderdate, o.bags, o.donation, o.paid, o.checknum, o.subdivision, o.streetnum, o.streetname, o.city, o.state, o.zipcode, o.phone, o.email, o.comments , o.toss1, o.toss2, o.toss3, o.toss4, o.toss5 = line.rstrip().split('\t')
+        o.deposit, o.order, o.firstname, o.lastname, o.orderdate, o.bags, o.donation, o.paid, o.checknum, o.subdivision, o.streetnum, o.streetname, o.city, o.state, o.zipcode, o.phone, o.email, o.comments, o.toss1 = line.rstrip().split('\t')
         o.setLocation(cache)
         ret.append(o)
 
@@ -83,6 +91,9 @@ def readRoutes(fileloc, cache):
         line.strip()
         o=Order()
         o.order, o.lastname, o.firstname, o.phone, o.streetname, o.street, o.city, o.state, o.zipcode, o.comments, o.bags, o.route = line.rstrip().split('\t')
+        #2015 - change for difference in spreadsheet.  Now the street number and name are separate on the main workbook so I emulate that here.  Read Orders will just put it back together again.
+        o.streetname = o.street.lower().split(' ',1)[1]
+        o.streetnum = o.street.lower().split(' ',1)[0]
         o.setLocation(cache)
         ret.append(o)
     return ret
@@ -99,7 +110,22 @@ def createDeliveryMap(orders, outputfile):
         if (o.lat[:7]=='Address'):
             print o.street + " is being ignored due to bad address"
             continue
-        mymap.addpoint(float(o.lat), float(o.lon), o.color, o.street + " - Order " + o.order + " - " + o.bags + " bags")
+        # The default pygmaps won't work with this.  The following change will rectify.  See http://stackoverflow.com/questions/19142375/how-to-add-a-title-to-each-point-mapped-on-google-maps-using-python-pygmaps
+        #This is an issue with pygmaps.py program I downloaded. In the supplied package there is no option to add a 4th column (title).
+        #
+        #Now I modified pygmaps.py program like below:
+        #
+        #from
+        #
+        #def addpoint(self, lat, lng, color = '#FF0000'):
+        #    self.points.append((lat,lng,color[1:]))
+        #to:
+        #
+        #def addpoint(self, lat, lng, color = '#FF0000', title = None):
+        #    self.points.append((lat,lng,color[1:],title))
+        #
+        label = o.street + " - Order " + o.order + " - " + o.bags + " bags"
+        mymap.addpoint(float(o.lat), float(o.lon), o.color, label)
 
     mymap.draw(outputfile)
 
@@ -154,7 +180,7 @@ def createRouteList( routeNum, orders, outputfile ):
     f=open(outputfile, "w")
     f.write('<html><head><style type="text/css">.panel{ padding:6px; border:solid 1px #E4E4E4; background-color:#EEEEEE; margin:8px 0px; width:98% ; min-height:80px; }.bodytext { font: Tahoma, sans-serif; color: #666666;  }.qrcode { float:left; }h1 { margin-bottom:5px; }</style></head><body>')
     f.write('<h1>Route ' + str(routeNum) + '</h1>')
-    f.write('<br/>\nComments: Estimated time XX min, YYY bags.  \n')
+    #f.write('<br/>\nComments: Estimated time XX min, YYY bags.  \n')
     gmapsUrl = "https://maps.google.com/maps?saddr=3301+Hidden+Meadow+Drive+Herndon,+VA+20171&daddr="
     bags=0
     import urllib
@@ -163,8 +189,8 @@ def createRouteList( routeNum, orders, outputfile ):
         address = o.street + " " + o.city + " " + o.state + " " + o.zipcode
         gmapsUrl += address + "+to:"
         f.write('<div class="panel" align="justify"><span class="qrcode">')
-        f.write('<img src="../qrcodes/' + str(o.order) + '.png" height="80px"/></span><span class="orangetitle">')
-        f.write('<a href="https://maps.google.com/maps?q=' + urllib.quote_plus(address) + '" target="_blank">' + address + '</a></span><span class="bodytext">')
+        #f.write('<img src="../qrcodes/' + str(o.order) + '.png" height="80px"/></span>')
+        f.write('<span class="orangetitle"><a href="https://maps.google.com/maps?q=' + urllib.quote_plus(address) + '" target="_blank">' + address + '</a></span><span class="bodytext">')
         f.write('<br/><b>' + str(o.bags) + ' bags</b> - Order ' + str(o.order) + ' <!-- - <span style="float:right"><a href="">Mark Done</a></span> -->')
         f.write('<br/>Name: ' + o.firstname + ' ' + o.lastname + ' Tel: ' + o.phone)
         f.write('<br><b>' + o.comments + '</b></span></div>')
@@ -176,7 +202,7 @@ def createRouteList( routeNum, orders, outputfile ):
     elif(bags < 315):
         adjustment = 'Bring back ' + str(315 - bags) + ' bags'
 
-    f.write('<div style="position:absolute;left:400px;top:0px;"><span style="font:1.5em bold italic;">\n' + str(bags) + ' bags.  ' + adjustment + '\n</span><br>')
+    f.write('<div style="position:absolute;left:150px;top:0px;"><span style="font:1.5em bold italic;">\n' + str(bags) + ' bags.  ' + adjustment + '\n</span><br>')
     f.write('<a href="' + gmapsUrl + '" target="_blank">Google maps directions for entire route</a></body>')
     f.write('</div>')
     f.close()
@@ -189,9 +215,9 @@ cache = loadFile("latlong.cache")
 #clumpconfig = loadFile("clumps.json")
 #setOrderColors(clumpconfig, orderList)
 #saveFile("latlong.cache", cache)
-# Create map of all orders using the pre-defined clumps.  This helps find streets that should be grouped.
+## Create map of all orders using the pre-defined clumps.  This helps find streets that should be grouped.
 #createDeliveryMap( orderList, './allDeliveries.html')
-
+#
 #printClumps( orderList, clumpconfig )  #dump this to a csv file for input into a spreadsheet and manual route creation
 
 ########## Step 2 #################

@@ -19,8 +19,10 @@ class maps:
 	def setgrids(self,slat,elat,latin,slng,elng,lngin):
 		self.gridsetting = [slat,elat,latin,slng,elng,lngin]
 
-	def addpoint(self, lat, lng, color, title):
-		self.points.append((lat,lng,color, title))
+	#def addpoint(self, lat, lng, color, title):
+	#	self.points.append((lat,lng,color, title))
+	def addpoint(self, lat, lng, color = '#FF0000', title = None):
+		self.points.append((lat,lng,color[1:],title))
 
 	#def addpointcoord(self, coord):
 	#	self.points.append((coord[0],coord[1]))
