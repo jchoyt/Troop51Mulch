@@ -14,7 +14,7 @@ class Order():
 
     def setLocation(self, cache):
         """ Check the lat/long cache, check new addresses with googleapi.  Set lat/long for the order appropriately.
-            After this method is run, the Order will have lat/long set or have its lat set to 'address is suspect' """
+            After this method is run, the Order will have lat/long set or have its lat set to 'Address is suspect' """
 
         # create qr codes - requires qrencode to be installed in the os.  Do this every time in case the order numbers change
         #import os
@@ -46,7 +46,7 @@ class Order():
                 self.lat = str(jsonData ['results'][0]['geometry']['location']['lat'])
                 self.lon = str(jsonData ['results'][0]['geometry']['location']['lng'])
             else:
-                self.lat = "address is suspect"
+                self.lat = "Address is suspect"
                 self.lon = ""
             cache[self.street] = (self.lat, self.lon)
 
@@ -107,7 +107,7 @@ def createDeliveryMap(orders, outputfile):
     # centered at rough central order  38.927115,-77.384287
     mymap = pygmaps.maps(38.927115,-77.384287, zoomlevel)
     for o in orders:
-        if (o.lat[:7]=='address'):
+        if (o.lat[:7]=='Address'):
             print o.street + " is being ignored due to bad address"
             continue
         # The default pygmaps won't work with this.  The following change will rectify.  See http://stackoverflow.com/questions/19142375/how-to-add-a-title-to-each-point-mapped-on-google-maps-using-python-pygmaps
@@ -131,10 +131,8 @@ def createDeliveryMap(orders, outputfile):
 
 
 def randomColor():
-    # from random import randrange
-    # ret = "%s" % "".join([hex(randrange(0, 255))[2:] for i in range(3)])
-    import random
-    ret = '#%06X' % random.randint(0,256**3-1)
+    from random import randrange
+    ret = "%s" % "".join([hex(randrange(0, 255))[2:] for i in range(3)])
     return ret
 
 def setOrderColors(clumpconfig, orderList):
@@ -164,7 +162,7 @@ def printClumps( clumps, clumpconfig):
             print "Missing " + o.streetname + " in clumps config file"
     for key in clumps.keys():
         for o in clumps[key].orders:
-            print str(o.order) + "\t" + o.lastname + "\t" + o.firstname + "\t" + o.phone + "\t" + key + "\t" + o.street + "\t" + o.city + "\t" + o.state + "\t" + o.zipcode + "\tComments: " + o.comments + "\t" + str(o.bags)
+            print str(o.order) +"\t" + o.lastname + "\t" + o.firstname + "\t" + o.phone + "\t" + key + "\t" + o.street + "\t" + o.city + "\t" + o.state + "\t" + o.zipcode + "\tComments: " + o.comments + "\t" + str(o.bags)
 
 def createRouteArtifacts( fileloc ):
     routedOrders = readRoutes(fileloc, cache)
@@ -209,20 +207,21 @@ def createRouteList( routeNum, orders, outputfile ):
     f.write('</div>')
     f.close()
 
+
 cache = loadFile("latlong.cache")
 
 ######### Step 1 ###############
-orderList = readOrders(sys.argv[1], cache)
-clumpconfig = loadFile("clumps.json")
-setOrderColors(clumpconfig, orderList)
-saveFile("latlong.cache", cache)
-# Create map of all orders using the pre-defined clumps.  This helps find streets that should be grouped.
-createDeliveryMap( orderList, './allDeliveries.html')
-
-printClumps( orderList, clumpconfig )  #dump this to a csv file for input into a spreadsheet and manual route creation
+#orderList = readOrders(sys.argv[1], cache)
+#clumpconfig = loadFile("clumps.json")
+#setOrderColors(clumpconfig, orderList)
+#saveFile("latlong.cache", cache)
+## Create map of all orders using the pre-defined clumps.  This helps find streets that should be grouped.
+#createDeliveryMap( orderList, './allDeliveries.html')
+#
+#printClumps( orderList, clumpconfig )  #dump this to a csv file for input into a spreadsheet and manual route creation
 
 ########## Step 2 #################
-#createRouteArtifacts( sys.argv[1] )
+createRouteArtifacts( sys.argv[1] )
 
 
 
