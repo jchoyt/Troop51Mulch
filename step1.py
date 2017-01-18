@@ -2,7 +2,6 @@
 
 import mulchLibrary
 import string
-import httplib
 import time
 import json
 import sys
@@ -46,7 +45,7 @@ def setOrderColors(clumpconfig, orderList):
 def printClumps( clumps, clumpconfig):
     from collections import OrderedDict
     # print out clumps
-    print "\nPrinting out clumps"
+    print("\nPrinting out clumps")
 
     clumps = dict()
     for o in orderList:
@@ -60,21 +59,20 @@ def printClumps( clumps, clumpconfig):
                 clumps[clumpname].bags = o.bags
             clumps[clumpname].orders.append(o)
         else:
-            print "Missing " + o.streetname + " in clumps config file"
-    for key in clumps.keys():
+            print("Missing " + o.streetname + " in clumps config file")
+    for key in list(clumps.keys()):
         for o in clumps[key].orders:
-            print str(o.order) + "\t" + o.lastname + "\t" + o.firstname + "\t" + o.phone + "\t" + key + "\t" + o.street + "\t" + o.city + "\t" + o.state + "\t" + o.zipcode + "\tComments: " + o.comments + "\t" + str(o.bags)
+            print (str(o.order) + "\t" + o.lastname + "\t" + o.firstname + "\t" + o.phone + "\t" + key + "\t" + o.street + "\t" + o.city + "\t" + o.state + "\t" + o.zipcode + "\tComments: " + o.comments + "\t" + str(o.bags))
 
 
 ###############################################################
-cache = mulchLibrary.loadFile("latlong.cache")
-orderList = readOrders(sys.argv[1], cache)
-clumpconfig = mulchLibrary.loadFile("clumps.json")
-setOrderColors(clumpconfig, orderList)
-saveFile("latlong.cache", cache)
-# Create map of all orders using the pre-defined clumps.  This helps find streets that should be grouped.
-mulchLibrary.createDeliveryMap( orderList, './allDeliveries.html')
+if __name__ == "__main__":
+    cache = mulchLibrary.loadFile("latlong.cache")
+    orderList = readOrders(sys.argv[1], cache)
+    clumpconfig = mulchLibrary.loadFile("clumps.json")
+    setOrderColors(clumpconfig, orderList)
+    saveFile("latlong.cache", cache)
+    # Create map of all orders using the pre-defined clumps.  This helps find streets that should be grouped.
+    mulchLibrary.createDeliveryMap( orderList, './allDeliveries.html')
 
-printClumps( orderList, clumpconfig )  #dump this to a csv file for input into a spreadsheet and manual route creation
-
-
+    printClumps( orderList, clumpconfig )  #dump this to a csv file for input into a spreadsheet and manual route creation

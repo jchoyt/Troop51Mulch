@@ -1,12 +1,14 @@
 #!/usr/bin/python
 
 import string
-import httplib
+from http.client import HTTPConnection
 import time
 import json
 import sys
 
-class Order():
+class Order:
+
+    address = ""
 
     def __init__(self):
         self.order=0
@@ -33,8 +35,8 @@ class Order():
             self.lat = cache[self.street][0]
             self.lon = cache[self.street][1]
         else:
-            print "Looking up lat/long for " + self.street
-            conn = httplib.HTTPConnection("maps.googleapis.com")
+            print("Looking up lat/long for " + self.street)
+            conn = HTTPConnection("maps.googleapis.com")
             self.address = self.street + " " +  self.city + " " +  self.state + " " +  self.zipcode
             conn.request("GET", "/maps/api/geocode/json?address=" + self.address.replace(" ", "%20") + "&sensor=true")
             r1 = conn.getresponse()
@@ -50,7 +52,27 @@ class Order():
                 self.lon = ""
             cache[self.street] = (self.lat, self.lon)
 
-class Clump():
+    def __str__(self):
+        return self.address
+
+class Route:
+    def __init__(self, routeNumber):
+        self.num = routeNumber
+        self.orders = []
+        self.time = 0
+        self.truck_num = 0
+
+    def finalize(self):
+        # get total number of bags
+        self.bags = 0
+        for o in self.orders:
+            self.bags += o.bags;
+
+
+        # determine time to drive the route
+
+
+class Clump:
     def __init__(self):
         self.bags = 0
         self.orders = []
@@ -87,7 +109,7 @@ def createDeliveryMap(orders, outputfile):
     mymap = pygmaps.maps(38.927115,-77.384287, zoomlevel)
     for o in orders:
         if (o.lat[:7]=='address'):
-            print o.street + " is being ignored due to bad address"
+            print(o.street + " is being ignored due to bad address")
             continue
         # The default pygmaps won't work with this.  The following change will rectify.  See http://stackoverflow.com/questions/19142375/how-to-add-a-title-to-each-point-mapped-on-google-maps-using-python-pygmaps
         #This is an issue with pygmaps.py program I downloaded. In the supplied package there is no option to add a 4th column (title).
@@ -107,8 +129,3 @@ def createDeliveryMap(orders, outputfile):
         mymap.addpoint(float(o.lat), float(o.lon), o.color, label)
 
     mymap.draw(outputfile)
-
-
-
-
-

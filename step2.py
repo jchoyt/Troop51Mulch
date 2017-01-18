@@ -48,12 +48,6 @@ def createRouteList( routeNum, orders, outputfile ):
 
 ##########################################################################
 
-cache = mulchLibrary.loadFile("latlong.cache")
-createRouteArtifacts( sys.argv[1] )
-
-
-
-
-
-
-
+if __name__ == "__main__":
+    cache = mulchLibrary.loadFile("latlong.cache")
+    createRouteArtifacts( sys.argv[1] )
