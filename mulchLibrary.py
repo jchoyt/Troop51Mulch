@@ -1,10 +1,11 @@
 #!/usr/bin/python
 
 import string
-from http.client import HTTPConnection
+# from http.client import HTTPConnection
 import time
 import json
 import sys
+import requests
 
 class Order:
 
@@ -29,21 +30,17 @@ class Order:
         self.streetname = self.streetname.lower()
         #2015 - create "street" from number and name
         self.street = self.streetnum + ' ' + self.streetname
-        # print self.street
 
         if(self.street in cache):
             self.lat = cache[self.street][0]
             self.lon = cache[self.street][1]
         else:
             print("Looking up lat/long for " + self.street)
-            conn = HTTPConnection("maps.googleapis.com")
             self.address = self.street + " " +  self.city + " " +  self.state + " " +  self.zipcode
-            conn.request("GET", "/maps/api/geocode/json?address=" + self.address.replace(" ", "%20") + "&sensor=true")
-            r1 = conn.getresponse()
+            r1 = requests.get("http://maps.googleapis.com/maps/api/geocode/json?address=" + self.address.replace(" ", "%20") + "&sensor=true")
             time.sleep(0.5)
-            # parse out the type, lat and long
-            jsonData = json.loads(r1.read())
-            # print jsonData
+            # # parse out the type, lat and long
+            jsonData = r1.json()
             if ('ROOFTOP' == jsonData['results'][0]['geometry']['location_type']):
                 self.lat = str(jsonData ['results'][0]['geometry']['location']['lat'])
                 self.lon = str(jsonData ['results'][0]['geometry']['location']['lng'])
@@ -80,9 +77,8 @@ class Clump:
 
 # read in json file
 def loadFile(fileloc):
-    f=open(fileloc, "r")
-    ret = json.load(f)
-    f.close()
+    with(open(fileloc, "r")) as f:
+        ret = json.load(f)
     return ret
 
 def readRoutes(fileloc, cache):
@@ -129,3 +125,15 @@ def createDeliveryMap(orders, outputfile):
         mymap.addpoint(float(o.lat), float(o.lon), o.color, label)
 
     mymap.draw(outputfile)
+
+def get_bounding_box():
+    """
+    Digs through the latlong cache and returns a bounding box around all the deliveries.
+    Returned list is [min lat, max lat, min long, max long]. Min/max is by sort order of abs(value).
+    """
+    with(open("latlong.cache", "r")) as f:
+        cache = json.load(f)
+    x = cache.values()
+    lats = [item[0] for item in x]
+    lons = [item[1] for item in x]
+    return [float(min(lats)), float(max(lats)),  float(min(lons)), float(max(lons))]
