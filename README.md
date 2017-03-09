@@ -1,3 +1,7 @@
+# Troop51Mulch
+Code to help create routes for Troop51's annual mulch sale
+
+
 http://tinyurl.com/troop51mulch goes to http://soulcubes.com/medcafe/index.html
 
 = How to prep the spreadsheet =
@@ -40,5 +44,3 @@ mkdir routes
 4. Print large master sheet on 11x17 or legal size paper
 5. Print a Truck Progress sheet so you can track which route a truck is doing and when you can expect them back
 6. in 2016, I gave a copy of the Truck Progress sheet to all the drivers - they actually filled them all out!
-
-<!-- :wrap=soft:noTabs=true:mode=markdown: -->
