@@ -29,7 +29,7 @@ def createRouteList( routeNum, orders, outputfile ):
         address = o.street + " " + o.city + " " + o.state + " " + o.zipcode
         gmapsUrl += address + "+to:"
         f.write('<div class="panel" align="justify">')
-        f.write('<span class="orangetitle"><a href="https://maps.google.com/maps?q=' + urllib.quote_plus(address) + '" target="_blank">' + address + '</a></span><span class="bodytext">')
+        f.write('<span class="orangetitle"><a href="https://maps.google.com/maps?q=' + urllib.parse.quote_plus(address) + '" target="_blank">' + address + '</a></span><span class="bodytext">')
         f.write('<br/><b>' + str(o.bags) + ' bags</b> - Order ' + str(o.order) + ' <!-- - <span style="float:right"><a href="">Mark Done</a></span> -->')
         f.write('<br/>Name: ' + o.firstname + ' ' + o.lastname + ' Tel: ' + o.phone)
         f.write('<br><b>' + o.comments + '</b></span></div>')

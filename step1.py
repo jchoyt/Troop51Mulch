@@ -20,7 +20,9 @@ def readOrders(fileloc, cache):
         line.strip()
         o = mulchLibrary.Order()
         #o.deposit, o.order, o.firstname, o.lastname, o.orderdate, o.bags, o.donation, o.paid, o.checknum, o.subdivision, o.streetnum, o.streetname, o.city, o.state, o.zipcode, o.phone, o.email, o.comments , o.toss1, o.toss2, o.toss3, o.toss4, o.toss5 = line.rstrip().split('\t')
-        o.deposit, o.order, o.firstname, o.lastname, o.orderdate, o.bags, o.donation, o.paid, o.checknum, o.subdivision, o.streetnum, o.streetname, o.city, o.state, o.zipcode, o.phone, o.email, o.comments, o.toss1 = line.rstrip().split('\t')
+        # 2016 o.deposit, o.order, o.firstname, o.lastname, o.orderdate, o.bags, o.donation, o.paid, o.checknum, o.subdivision, o.streetnum, o.streetname, o.city, o.state, o.zipcode, o.phone, o.email, o.comments, o.toss1 = line.rstrip().split('\t')
+        # new for 2017 below
+        toss1, o.order, toss2, o.firstname, o.lastname, o.streetnum, o.streetname, toss3, o.city, o.state, o.zipcode, o.subdivision, o.bags, o.phone, o.email, o.comments, toss4  = line.rstrip().split('\t')
         o.setLocation(cache)
         ret.append(o)
 

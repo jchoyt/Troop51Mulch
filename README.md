@@ -8,8 +8,8 @@ http://tinyurl.com/troop51mulch goes to http://soulcubes.com/medcafe/index.html
 1. Open in LibreOffice Calc or Microsoft Excel
 2. Delete all rows from the last order to the end
 3. Delete the first row
-4. (optional, but good practice) Delete all columns after column S
-5. Fill out junk content in all rows in column S - this is discarded by the code, but is needed to make easy parsing of the rows possible.  I just copy the # down.
+4. (optional, but good practice) Delete all columns after column O. This ensures the commas all show up for the step1 parsing
+5. Fill out junk content in all rows in column O - this is discarded by the code, but is needed to make easy parsing of the rows possible.  I just copy the # down.
 6. Delete any pure donation rows (where there's no address).  You'll have to copy and "paste special" over all the order numbers to paste in the values, not the formulas
 7. Save as CSV file with Tab delimiter and no text delimiter.  Check for non-ASCII characters (slanted ' seem to be popular).  If you have a text editor that you can specify the character set in, set it to US-ASCII and it'll hunt down all the weird characters for you
 
@@ -18,10 +18,10 @@ Need to import pygmaps:
 export PYTHONPATH=/home/jchoyt/devel/boyscouts/pygmaps-0.1.1
 
 processOrders has two stages.  First stage checks and caches all addresses:
-./step1.py Mulch_Sale_2015.csv
+python step1.py Mulch_Sale_2015.csv
 
 # Manual route preparation
-1. After all orders are in, redirect the step 1 output to a csv file:  `./step1.py Mulch_Sale_2016.csv > 2016routes.csv`
+1. After all orders are in, redirect the step 1 output to a csv file:  `python step1.py Mulch_Sale_2016.csv > 2016routes.csv`
 2. Clean up any extraneous output at the top of the file.   All that should be there is a set of tab-delimted tuples
 3. Open in LibreCalc or Excel and make sure it cleanly separated the columns.  Columns should be order no, last name, first name, phone number, neighborhood, street address, city, state, zip, comments, number of bags
 4. Add the analysis section at the bottom using a previous year's YEARroutes.ods spreadsheet.  Modify all the formulas to account for different number of orders from year to year.
