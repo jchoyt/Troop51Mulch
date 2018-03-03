@@ -37,7 +37,7 @@ class Order:
         else:
             print("Looking up lat/long for " + self.street)
             self.address = self.street + " " +  self.city + " " +  self.state + " " +  self.zipcode
-            r1 = requests.get("http://maps.googleapis.com/maps/api/geocode/json?address=" + self.address.replace(" ", "%20") + "&sensor=true")
+            r1 = requests.get("https://maps.googleapis.com/maps/api/geocode/json?address=" + self.address.replace(" ", "%20") + "&sensor=true&key= AIzaSyAU54x8sEfXPLcv3yvaFTX3SISRymn8uaQ")
             time.sleep(0.5)
             # # parse out the type, lat and long
             jsonData = r1.json()
